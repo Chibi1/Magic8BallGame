@@ -1,6 +1,26 @@
 package model;
 
+import java.util.Scanner;
+
 public class Magic8Ball {
+
+    private boolean isPlaying;
+
+    private Scanner scanner = new Scanner(System.in);
+
+    public Magic8Ball() {
+        this.isPlaying = true;
+    }
+
+    public void playGame() {
+        System.out.println("Hello, I am a magic 8 ball.\n");
+        do {
+            System.out.println("Please ask me a yes or no question and i will tell you your destiny.");
+            scanner.nextLine();
+            System.out.println(generateResponse());
+            playAgain();
+        } while (isPlaying);
+    }
 
     private String generateResponse() {
         String response = "";
@@ -36,5 +56,18 @@ public class Magic8Ball {
     private int generateResponseIndex() {
         int number = (int)(Math.random()*8) + 1;
         return number;
+    }
+
+    private void playAgain() {
+        String response;
+        do {
+            System.out.print("Do you have another question (y/n)? ");
+            response = scanner.nextLine().toLowerCase();
+            if (response.equals("y")) {
+                isPlaying = true;
+            } else if (response.equals("n")) {
+                isPlaying = false;
+            }
+        } while (!(response.equals("y") || response.equals("n")));
     }
 }
